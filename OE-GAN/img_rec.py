@@ -36,10 +36,6 @@ for epoch in range(num_epoch):
         real_x = torch.clamp(real_x, 0.1, 1)
         y = y.to(device)
 
-        #noise = torch.ones((len(x), 1, N, N)).to(device)
-        #indices = torch.randint(N, (len(x), 2)).to(device)
-        #noise[torch.arange(len(x)), :, indices[:, 0], indices[:, 1]] = 0
-
         noise = torch.randint(2, (len(x), 1, N, N)).float().to(device)
         noise = noise.repeat_interleave(Ny//N, 2).repeat_interleave(Nx//N, 3)
         input = transforms.Resize((Ny,Nx))(real_x) * noise
